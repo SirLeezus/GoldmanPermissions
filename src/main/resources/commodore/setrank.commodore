@@ -1,0 +1,5 @@
+setrank {
+  player brigadier:string single_word {
+    rank brigadier:string single_word;
+  }
+}
