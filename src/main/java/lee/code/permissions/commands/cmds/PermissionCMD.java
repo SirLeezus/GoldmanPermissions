@@ -58,7 +58,7 @@ public class PermissionCMD extends CustomCommand {
 
     @Override
     public void performSender(CommandSender sender, String[] args, Command command) {
-        if (args.length > 3) {
+        if (args.length < 3) {
             sender.sendMessage(Lang.USAGE.getComponent(new String[] { command.getUsage() }));
             return;
         }
