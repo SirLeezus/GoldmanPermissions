@@ -7,11 +7,11 @@ import net.kyori.adventure.text.Component;
 
 @AllArgsConstructor
 public enum Lang {
-    PREFIX("&9&lPermissions &6➔ "),
+    PREFIX("&#1ECCFF&lPermissions &6➔ "),
     USAGE("&6&lUsage: &e{0}"),
     TRUE("&2&lTrue"),
     FALSE("&c&lFalse"),
-    COMMAND_SET_RANK_SUCCESSFUL("&aYou successfully set &6{0}'s &arank to &3{1}&a!"),
+    COMMAND_SET_RANK_SUCCESSFUL("&aSuccessfully set &6{0}'s &arank to &3{1}&a!"),
     COMMAND_PERMISSION_ADD_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been added to the player &6{1}&a!"),
     COMMAND_PERMISSION_REMOVE_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been removed from the player &6{1}&a!"),
     COMMAND_PERMISSION_CHECK_SUCCESSFUL("&aPermission Check&7: &6{0}&a &7| &aTarget Permission&7: &3{1} &7| &aResult&7: &3{2}"),
