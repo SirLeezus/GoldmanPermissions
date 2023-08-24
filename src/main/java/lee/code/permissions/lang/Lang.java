@@ -9,11 +9,18 @@ import net.kyori.adventure.text.Component;
 public enum Lang {
     PREFIX("&9&lPermissions &6➔ "),
     USAGE("&6&lUsage: &e{0}"),
+    TRUE("&2&lTrue"),
+    FALSE("&c&lFalse"),
+    COMMAND_SET_RANK_SUCCESSFUL("&aYou successfully set &6{0}'s &arank to &3{1}&a!"),
+    COMMAND_PERMISSION_ADD_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been added to the player &6{1}&a!"),
+    COMMAND_PERMISSION_REMOVE_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been removed from the player &6{1}&a!"),
+    COMMAND_PERMISSION_CHECK_SUCCESSFUL("&aPermission Check&7: &6{0}&a &7| &aTarget Permission&7: &3{1} &7| &aResult&7: &3{2}"),
     ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another town command, please wait for it to finish."),
     ERROR_PLAYER_NOT_FOUND("&cThe player &6{0} &ccould not be found."),
     ERROR_NO_PLAYER_DATA("&cCould not find any player data for &6{0}&c."),
     ERROR_NOT_RANK("&cThe input &3{0} &cis not a rank."),
-    COMMAND_SET_RANK_SUCCESSFUL("&aYou successfully set &6{0}'s &arank to &3{1}&a!"),
+    ERROR_PERMISSION_REMOVE_NOT_OWNED("&cThe player &6{0} &cdoes not have the permission &3{1}&c."),
+    ERROR_PERMISSION_ADD_ALREADY_OWNED("&cThe player &6{0} &calready has the permission &3{1}&c."),
 
     ;
 

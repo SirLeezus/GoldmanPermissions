@@ -2,6 +2,7 @@ package lee.code.permissions.commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lee.code.permissions.Permissions;
+import lee.code.permissions.commands.cmds.PermissionCMD;
 import lee.code.permissions.commands.cmds.SetRankCMD;
 import lee.code.permissions.lang.Lang;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class CommandManager {
 
     private void storeCommands() {
         commands.add(new SetRankCMD(permissions));
+        commands.add(new PermissionCMD(permissions));
     }
 
     public void perform(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {

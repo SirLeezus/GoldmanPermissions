@@ -35,6 +35,11 @@ public class PermissionData {
         return permissionsCache.containsKey(uuid);
     }
 
+    public boolean hasPermission(UUID uuid, String permission) {
+        if (!permissionsCache.containsKey(uuid)) return false;
+        return permissionsCache.get(uuid).contains(permission);
+    }
+
     public void cachePermissions(PlayerTable playerTable) {
         if (playerTable.getPermissions() == null) return;
         final String[] permission = playerTable.getPermissions().split(",");

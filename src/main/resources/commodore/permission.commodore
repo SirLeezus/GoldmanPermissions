@@ -1,0 +1,13 @@
+permission {
+  player brigadier:string single_word {
+    add {
+        permission brigadier:string single_word;
+    }
+    remove {
+        permission brigadier:string single_word;
+    }
+    check {
+        permission brigadier:string single_word;
+    }
+  }
+}

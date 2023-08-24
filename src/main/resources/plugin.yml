@@ -10,3 +10,7 @@ commands:
     description: Set a rank for a player.
     permission: permissions.command.setrank
     usage: "/setrank &f<player> <rank>"
+  permission:
+    description: Permission options to can execute for players.
+    permission: permissions.command.permission
+    usage: "/permission &f<player> <add/remove/check> <permission>"
