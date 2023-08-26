@@ -37,7 +37,7 @@ public class CommandManager {
         if (sender instanceof Player player) {
             final UUID uuid = player.getUniqueId();
             if (asyncTasks.containsKey(uuid)) {
-                player.sendMessage(Lang.ERROR_ONE_COMMAND_AT_A_TIME.getComponent(null));
+                player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_ONE_COMMAND_AT_A_TIME.getComponent(null)));
                 return;
             }
             if (customCommand.performAsync()) {
