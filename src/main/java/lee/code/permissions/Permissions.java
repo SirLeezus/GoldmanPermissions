@@ -19,50 +19,49 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
 
 public class Permissions extends JavaPlugin {
+  @Getter private PermissionManager permissionManager;
+  @Getter private CacheManager cacheManager;
+  @Getter private Data data;
+  @Getter private CommandManager commandManager;
+  private DatabaseManager databaseManager;
 
-    @Getter private PermissionManager permissionManager;
-    @Getter private CacheManager cacheManager;
-    @Getter private Data data;
-    @Getter private CommandManager commandManager;
-    private DatabaseManager databaseManager;
+  @Override
+  public void onEnable() {
+    this.data = new Data();
+    this.permissionManager = new PermissionManager(this);
+    this.databaseManager = new DatabaseManager(this);
+    this.cacheManager = new CacheManager(this, databaseManager);
+    this.commandManager = new CommandManager(this);
+    databaseManager.initialize(false);
+    registerListeners();
+    registerCommands();
+  }
 
-    @Override
-    public void onEnable() {
-        this.data = new Data();
-        this.permissionManager=  new PermissionManager(this);
-        this.databaseManager = new DatabaseManager(this);
-        this.cacheManager = new CacheManager(this, databaseManager);
-        this.commandManager = new CommandManager(this);
-        databaseManager.initialize(false);
-        registerListeners();
-        registerCommands();
+  @Override
+  public void onDisable() {
+    databaseManager.closeConnection();
+  }
+
+  private void registerListeners() {
+    getServer().getPluginManager().registerEvents(new JoinListener(this), this);
+    getServer().getPluginManager().registerEvents(new TabCompleteListener(this), this);
+    getServer().getPluginManager().registerEvents(new QuitListener(this), this);
+  }
+
+  private void registerCommands() {
+    for (CustomCommand command : commandManager.getCommands()) {
+      getCommand(command.getName()).setExecutor(command);
+      getCommand(command.getName()).setTabCompleter(new TabCompletion(command));
+      loadCommodoreData(getCommand(command.getName()));
     }
+  }
 
-    @Override
-    public void onDisable() {
-        databaseManager.closeConnection();
+  private void loadCommodoreData(Command command) {
+    try {
+      final LiteralCommandNode<?> targetCommand = CommodoreFileReader.INSTANCE.parse(getResource("commodore/" + command.getName() + ".commodore"));
+      CommodoreProvider.getCommodore(this).register(command, targetCommand);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
-
-    private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new JoinListener(this), this);
-        getServer().getPluginManager().registerEvents(new TabCompleteListener(this), this);
-        getServer().getPluginManager().registerEvents(new QuitListener(this), this);
-    }
-
-    private void registerCommands() {
-        for (CustomCommand command : commandManager.getCommands()) {
-            getCommand(command.getName()).setExecutor(command);
-            getCommand(command.getName()).setTabCompleter(new TabCompletion(command));
-            loadCommodoreData(getCommand(command.getName()));
-        }
-    }
-
-    private void loadCommodoreData(Command command) {
-        try {
-            final LiteralCommandNode<?> targetCommand = CommodoreFileReader.INSTANCE.parse(getResource("commodore/" + command.getName() + ".commodore"));
-            CommodoreProvider.getCommodore(this).register(command, targetCommand);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+  }
 }

@@ -12,22 +12,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CoreUtil {
+  public static Component parseColorComponent(String text) {
+    final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
+    return (Component.empty().decoration(TextDecoration.ITALIC, false)).append(serializer.deserialize(text));
+  }
 
-    public static Component parseColorComponent(String text) {
-        final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-        return (Component.empty().decoration(TextDecoration.ITALIC, false)).append(serializer.deserialize(text));
-    }
+  @SuppressWarnings("deprecation")
+  public static String capitalize(String message) {
+    final String format = message.toLowerCase().replaceAll("_", " ");
+    return WordUtils.capitalize(format);
+  }
 
-    @SuppressWarnings("deprecation")
-    public static String capitalize(String message) {
-        final String format = message.toLowerCase().replaceAll("_", " ");
-        return WordUtils.capitalize(format);
-    }
-
-    public static List<String> getOnlinePlayers() {
-        return Bukkit.getOnlinePlayers().stream()
-                .filter(player -> !player.getGameMode().equals(GameMode.SPECTATOR))
-                .map(Player::getName)
-                .collect(Collectors.toList());
-    }
+  public static List<String> getOnlinePlayers() {
+    return Bukkit.getOnlinePlayers().stream()
+      .filter(player -> !player.getGameMode().equals(GameMode.SPECTATOR))
+      .map(Player::getName)
+      .collect(Collectors.toList());
+  }
 }

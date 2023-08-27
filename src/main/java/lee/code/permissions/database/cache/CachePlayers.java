@@ -10,41 +10,40 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CachePlayers extends DatabaseHandler {
+  @Getter private final PermissionData permissionData;
+  private final ConcurrentHashMap<UUID, PlayerTable> playersCache = new ConcurrentHashMap<>();
 
-    @Getter private final PermissionData permissionData;
-    private final ConcurrentHashMap<UUID, PlayerTable> playersCache = new ConcurrentHashMap<>();
+  public CachePlayers(DatabaseManager databaseManager) {
+    super(databaseManager);
+    permissionData = new PermissionData(this);
+  }
 
-    public CachePlayers(DatabaseManager databaseManager) {
-        super(databaseManager);
-        permissionData = new PermissionData(this);
-    }
+  public void setPlayerTable(PlayerTable playerTable) {
+    playersCache.put(playerTable.getUniqueId(), playerTable);
+    permissionData.cachePermissions(playerTable);
+  }
 
-    public void setPlayerTable(PlayerTable playerTable) {
-        playersCache.put(playerTable.getUniqueId(), playerTable);
-        permissionData.cachePermissions(playerTable);
-    }
+  public PlayerTable getPlayerTable(UUID uuid) {
+    return playersCache.get(uuid);
+  }
 
-    public PlayerTable getPlayerTable(UUID uuid) {
-        return playersCache.get(uuid);
-    }
+  public boolean hasPlayerData(UUID uuid) {
+    return playersCache.containsKey(uuid);
+  }
 
-    public boolean hasPlayerData(UUID uuid) {
-        return playersCache.containsKey(uuid);
-    }
+  public void createPlayerData(UUID uuid) {
+    final PlayerTable playerTable = new PlayerTable(uuid);
+    setPlayerTable(playerTable);
+    createPlayerDatabase(playerTable);
+  }
 
-    public void createPlayerData(UUID uuid) {
-        final PlayerTable playerTable = new PlayerTable(uuid);
-        setPlayerTable(playerTable);
-        createPlayerDatabase(playerTable);
-    }
+  public Rank getRank(UUID uuid) {
+    return Rank.valueOf(getPlayerTable(uuid).getRank());
+  }
 
-    public Rank getRank(UUID uuid) {
-        return Rank.valueOf(getPlayerTable(uuid).getRank());
-    }
-
-    public void setRank(UUID uuid, Rank rank) {
-        final PlayerTable playerTable = getPlayerTable(uuid);
-        playerTable.setRank(rank.name());
-        updatePlayerDatabase(playerTable);
-    }
+  public void setRank(UUID uuid, Rank rank) {
+    final PlayerTable playerTable = getPlayerTable(uuid);
+    playerTable.setRank(rank.name());
+    updatePlayerDatabase(playerTable);
+  }
 }

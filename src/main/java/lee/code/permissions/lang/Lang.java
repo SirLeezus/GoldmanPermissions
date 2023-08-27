@@ -15,7 +15,7 @@ public enum Lang {
     COMMAND_PERMISSION_ADD_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been added to the player &6{1}&a!"),
     COMMAND_PERMISSION_REMOVE_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been removed from the player &6{1}&a!"),
     COMMAND_PERMISSION_CHECK_SUCCESSFUL("&aPermission Check&7: &6{0}&a &7| &aTarget Permission&7: &3{1} &7| &aResult&7: &3{2}"),
-    ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another town command, please wait for it to finish."),
+    ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another command, please wait for it to finish."),
     ERROR_PLAYER_NOT_FOUND("&cThe player &6{0} &ccould not be found."),
     ERROR_NO_PLAYER_DATA("&cCould not find any player data for &6{0}&c."),
     ERROR_NOT_RANK("&cThe input &3{0} &cis not a rank."),

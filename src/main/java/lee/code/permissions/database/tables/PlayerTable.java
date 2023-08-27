@@ -14,18 +14,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @DatabaseTable(tableName = "players")
 public class PlayerTable {
+  @DatabaseField(id = true, canBeNull = false)
+  private UUID uniqueId;
 
-    @DatabaseField(id = true, canBeNull = false)
-    private UUID uniqueId;
+  @DatabaseField(columnName = "permissions")
+  private String permissions;
 
-    @DatabaseField(columnName = "permissions")
-    private String permissions;
+  @DatabaseField(columnName = "rank")
+  private String rank;
 
-    @DatabaseField(columnName = "rank")
-    private String rank;
-
-    public PlayerTable(UUID uniqueId) {
-        this.uniqueId = uniqueId;
-        this.rank = Rank.DEFAULT.name();
-    }
+  public PlayerTable(UUID uniqueId) {
+    this.uniqueId = uniqueId;
+    this.rank = Rank.DEFAULT.name();
+  }
 }
