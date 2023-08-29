@@ -1,5 +1,6 @@
 package lee.code.permissions.commands.cmds;
 
+import lee.code.colors.ColorAPI;
 import lee.code.permissions.Permissions;
 import lee.code.permissions.commands.CustomCommand;
 import lee.code.permissions.database.CacheManager;
@@ -78,23 +79,23 @@ public class PermissionCMD extends CustomCommand {
     switch (option) {
       case "add" -> {
         if (cacheManager.hasGlobalPermission(targetID, permission)) {
-          sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PERMISSION_ADD_ALREADY_OWNED.getComponent(new String[]{targetString, permission})));
+          sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PERMISSION_ADD_ALREADY_OWNED.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), permission})));
           return;
         }
         cacheManager.getCachePlayers().getPermissionData().addPermission(targetID, permission);
-        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_ADD_SUCCESSFUL.getComponent(new String[]{permission, targetString})));
+        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_ADD_SUCCESSFUL.getComponent(new String[]{permission, ColorAPI.getNameColor(targetID, targetString)})));
       }
       case "remove" -> {
         if (!cacheManager.getCachePlayers().getPermissionData().hasPermission(targetID, permission)) {
-          sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PERMISSION_REMOVE_NOT_OWNED.getComponent(new String[]{targetString, permission})));
+          sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PERMISSION_REMOVE_NOT_OWNED.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), permission})));
           return;
         }
         cacheManager.getCachePlayers().getPermissionData().removePermission(targetID, permission);
-        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_REMOVE_SUCCESSFUL.getComponent(new String[]{permission, targetString})));
+        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_REMOVE_SUCCESSFUL.getComponent(new String[]{permission, ColorAPI.getNameColor(targetID, targetString)})));
       }
       case "check" -> {
         final String result = cacheManager.hasGlobalPermission(targetID, permission) ? Lang.TRUE.getString() : Lang.FALSE.getString();
-        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_CHECK_SUCCESSFUL.getComponent(new String[]{targetString, permission, result})));
+        sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_PERMISSION_CHECK_SUCCESSFUL.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), permission, result})));
       }
       default -> sender.sendMessage(Lang.USAGE.getComponent(new String[]{command.getUsage()}));
     }

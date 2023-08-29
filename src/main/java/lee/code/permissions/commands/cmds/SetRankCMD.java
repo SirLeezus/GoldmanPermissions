@@ -89,7 +89,7 @@ public class SetRankCMD extends CustomCommand {
         permissions.getPermissionManager().registerPermissions(onlineTarget);
       }
     }
-    sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_SET_RANK_SUCCESSFUL.getComponent(new String[]{target.getName(), CoreUtil.capitalize(rankString)})));
+    sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_SET_RANK_SUCCESSFUL.getComponent(new String[]{ColorAPI.getNameColor(target.getUniqueId(), target.getName()), CoreUtil.capitalize(rankString)})));
   }
 
   @Override
