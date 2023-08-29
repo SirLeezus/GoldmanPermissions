@@ -32,7 +32,7 @@ public class StaffChatCMD extends CustomCommand {
 
   @Override
   public boolean performAsyncSynchronized() {
-    return true;
+    return false;
   }
 
   @Override
@@ -45,6 +45,10 @@ public class StaffChatCMD extends CustomCommand {
   public void perform(Player player, String[] args, Command command) {
     final UUID uuid = player.getUniqueId();
     final StaffChatManager staffChatManager = permissions.getStaffChatManager();
+    if (!staffChatManager.isStaff(uuid)) {
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_STAFF_MEMBER.getComponent(null)));
+      return;
+    }
     if (staffChatManager.isChatting(uuid)) {
       staffChatManager.removeChatter(uuid);
       player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_STAFF_CHAT_SUCCESSFUL.getComponent(new String[]{Lang.OFF.getString()})));

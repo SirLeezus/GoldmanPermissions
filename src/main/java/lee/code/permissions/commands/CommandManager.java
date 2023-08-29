@@ -44,20 +44,30 @@ public class CommandManager {
       if (customCommand.performAsync()) {
         if (customCommand.performAsyncSynchronized()) {
           synchronized (synchronizedThreadLock) {
-            performCommandAsync(player, uuid, args, customCommand, command);
+            performPlayerCommandAsync(player, uuid, args, customCommand, command);
           }
         } else {
-          performCommandAsync(player, uuid, args, customCommand, command);
+          performPlayerCommandAsync(player, uuid, args, customCommand, command);
         }
       } else {
         customCommand.perform(player, args, command);
       }
     } else if (sender instanceof ConsoleCommandSender console) {
-      customCommand.performConsole(console, args, command);
+      if (customCommand.performAsync()) {
+        if (customCommand.performAsyncSynchronized()) {
+          synchronized (synchronizedThreadLock) {
+            performConsoleCommandAsync(sender, args, customCommand, command);
+          }
+        } else {
+          performConsoleCommandAsync(sender, args, customCommand, command);
+        }
+      } else {
+        customCommand.performConsole(console, args, command);
+      }
     }
   }
 
-  private void performCommandAsync(Player player, UUID uuid, String[] args, CustomCommand customCommand, Command command) {
+  private void performPlayerCommandAsync(Player player, UUID uuid, String[] args, CustomCommand customCommand, Command command) {
     asyncTasks.put(uuid, Bukkit.getAsyncScheduler().runNow(permissions, scheduledTask -> {
       try {
         customCommand.perform(player, args, command);
@@ -65,5 +75,9 @@ public class CommandManager {
         asyncTasks.remove(uuid);
       }
     }));
+  }
+
+  private void performConsoleCommandAsync(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {
+    Bukkit.getAsyncScheduler().runNow(permissions, scheduledTask -> customCommand.performConsole(sender, args, command));
   }
 }

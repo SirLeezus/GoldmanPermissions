@@ -13,7 +13,7 @@ public enum Lang {
   FALSE("&c&lFalse"),
   ON("&2&lON"),
   OFF("&c&lOFF"),
-  STAFF_CHAT("&b[&3SC&b] &6{0}&7: "),
+  STAFF_CHAT("&e[&cSC&e] {display-name}&7: &#F97C7C{message}"),
   COMMAND_STAFF_CHAT_SUCCESSFUL("&aSuccessfully toggled staff chat {0}&a!"),
   COMMAND_SET_RANK_SUCCESSFUL("&aSuccessfully set &6{0}'s &arank to &3{1}&a!"),
   COMMAND_PERMISSION_ADD_SUCCESSFUL("&aThe permission &3{0} &ahas successfully been added to the player &6{1}&a!"),
@@ -26,6 +26,7 @@ public enum Lang {
   ERROR_PERMISSION_REMOVE_NOT_OWNED("&cThe player &6{0} &cdoes not have the permission &3{1}&c."),
   ERROR_PERMISSION_ADD_ALREADY_OWNED("&cThe player &6{0} &calready has the permission &3{1}&c."),
   ERROR_NOT_CONSOLE_COMMAND("&cThis command does not work in console."),
+  ERROR_NOT_STAFF_MEMBER("&cYou do not have a staff rank so you can't use this command."),
   ;
 
   @Getter private final String string;
