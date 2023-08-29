@@ -4,6 +4,7 @@ import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lee.code.permissions.Permissions;
 import lee.code.permissions.commands.cmds.PermissionCMD;
 import lee.code.permissions.commands.cmds.SetRankCMD;
+import lee.code.permissions.commands.cmds.StaffChatCMD;
 import lee.code.permissions.lang.Lang;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -30,6 +31,7 @@ public class CommandManager {
   private void storeCommands() {
     commands.add(new SetRankCMD(permissions));
     commands.add(new PermissionCMD(permissions));
+    commands.add(new StaffChatCMD(permissions));
   }
 
   public void perform(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {

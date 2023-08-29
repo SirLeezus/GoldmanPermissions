@@ -14,3 +14,8 @@ commands:
     description: Permission options to can execute for players.
     permission: permissions.command.permission
     usage: "/permission &f<player> <add/remove/check> <permission>"
+  staffchat:
+    description: Toggle staff chat channel.
+    permission: permissions.command.staffchat
+    aliases: [sc]
+    usage: "/staffchat"

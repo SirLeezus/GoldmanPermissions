@@ -8,8 +8,10 @@ import lee.code.permissions.database.CacheManager;
 import lee.code.permissions.database.DatabaseManager;
 import lee.code.permissions.listeners.JoinListener;
 import lee.code.permissions.listeners.QuitListener;
+import lee.code.permissions.listeners.StaffChatListener;
 import lee.code.permissions.listeners.TabCompleteListener;
 import lee.code.permissions.managers.PermissionManager;
+import lee.code.permissions.managers.StaffChatManager;
 import lombok.Getter;
 import me.lucko.commodore.CommodoreProvider;
 import me.lucko.commodore.file.CommodoreFileReader;
@@ -19,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
 
 public class Permissions extends JavaPlugin {
+  @Getter private StaffChatManager staffChatManager;
   @Getter private PermissionManager permissionManager;
   @Getter private CacheManager cacheManager;
   @Getter private Data data;
@@ -32,6 +35,7 @@ public class Permissions extends JavaPlugin {
     this.databaseManager = new DatabaseManager(this);
     this.cacheManager = new CacheManager(this, databaseManager);
     this.commandManager = new CommandManager(this);
+    this.staffChatManager = new StaffChatManager(this);
     databaseManager.initialize(false);
     registerListeners();
     registerCommands();
@@ -46,6 +50,7 @@ public class Permissions extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new JoinListener(this), this);
     getServer().getPluginManager().registerEvents(new TabCompleteListener(this), this);
     getServer().getPluginManager().registerEvents(new QuitListener(this), this);
+    getServer().getPluginManager().registerEvents(new StaffChatListener(this), this);
   }
 
   private void registerCommands() {

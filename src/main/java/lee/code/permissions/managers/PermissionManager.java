@@ -59,6 +59,10 @@ public class PermissionManager {
     return playerCommands.get(uuid);
   }
 
+  public boolean hasCommands(UUID uuid) {
+    return playerCommands.containsKey(uuid);
+  }
+
   public void deleteCommandData(UUID uuid) {
     playerCommands.remove(uuid);
   }

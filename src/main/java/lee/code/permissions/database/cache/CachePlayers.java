@@ -1,6 +1,8 @@
 package lee.code.permissions.database.cache;
 
 import lee.code.permissions.database.DatabaseManager;
+import lee.code.permissions.database.cache.data.PermissionData;
+import lee.code.permissions.database.cache.data.StaffData;
 import lee.code.permissions.database.handlers.DatabaseHandler;
 import lee.code.permissions.database.tables.PlayerTable;
 import lee.code.permissions.enums.Rank;
@@ -11,16 +13,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CachePlayers extends DatabaseHandler {
   @Getter private final PermissionData permissionData;
+  @Getter private final StaffData staffData;
   private final ConcurrentHashMap<UUID, PlayerTable> playersCache = new ConcurrentHashMap<>();
 
   public CachePlayers(DatabaseManager databaseManager) {
     super(databaseManager);
     permissionData = new PermissionData(this);
+    staffData = new StaffData();
   }
 
   public void setPlayerTable(PlayerTable playerTable) {
     playersCache.put(playerTable.getUniqueId(), playerTable);
     permissionData.cachePermissions(playerTable);
+    staffData.cacheStaff(playerTable);
   }
 
   public PlayerTable getPlayerTable(UUID uuid) {
@@ -44,6 +49,7 @@ public class CachePlayers extends DatabaseHandler {
   public void setRank(UUID uuid, Rank rank) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setRank(rank.name());
+    staffData.cacheStaff(playerTable);
     updatePlayerDatabase(playerTable);
   }
 }

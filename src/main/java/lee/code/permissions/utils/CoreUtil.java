@@ -3,6 +3,7 @@ package lee.code.permissions.utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -21,6 +22,10 @@ public class CoreUtil {
   public static String capitalize(String message) {
     final String format = message.toLowerCase().replaceAll("_", " ");
     return WordUtils.capitalize(format);
+  }
+
+  public static String convertComponentToString(Component component) {
+    return PlainTextComponentSerializer.plainText().serialize(component);
   }
 
   public static List<String> getOnlinePlayers() {

@@ -6,6 +6,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
+import java.util.UUID;
+
 public class TabCompleteListener implements Listener {
   private final Permissions permissions;
 
@@ -17,6 +19,9 @@ public class TabCompleteListener implements Listener {
   public void onCommandTabShow(PlayerCommandSendEvent e) {
     if (e.getPlayer().isOp()) return;
     e.getCommands().clear();
-    e.getCommands().addAll(permissions.getPermissionManager().getCommands(e.getPlayer().getUniqueId()));
+    final UUID uuid = e.getPlayer().getUniqueId();
+    if (permissions.getPermissionManager().hasCommands(uuid)) {
+      e.getCommands().addAll(permissions.getPermissionManager().getCommands(uuid));
+    }
   }
 }

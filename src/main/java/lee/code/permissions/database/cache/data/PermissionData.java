@@ -1,5 +1,6 @@
-package lee.code.permissions.database.cache;
+package lee.code.permissions.database.cache.data;
 
+import lee.code.permissions.database.cache.CachePlayers;
 import lee.code.permissions.database.tables.PlayerTable;
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,9 +8,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PermissionData {
-  private final ConcurrentHashMap<UUID, Set<String>> permissionsCache = new ConcurrentHashMap<>();
-
   private final CachePlayers cachePlayers;
+  private final ConcurrentHashMap<UUID, Set<String>> permissionsCache = new ConcurrentHashMap<>();
 
   public PermissionData(CachePlayers cachePlayers) {
     this.cachePlayers = cachePlayers;
