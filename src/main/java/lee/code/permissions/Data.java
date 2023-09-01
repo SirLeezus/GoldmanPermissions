@@ -69,7 +69,7 @@ public class Data {
         case DEFAULT -> {
           setRankPermission(rank, "central.command.balance");
           setRankPermission(rank, "towns.command.use");
-          setRankPermission(rank, "towns.command.use");
+          setRankPermission(rank, "towns.command.help");
           setRankPermission(rank, "towns.command.create");
         }
       }
