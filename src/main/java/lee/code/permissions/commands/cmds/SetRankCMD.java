@@ -8,6 +8,7 @@ import lee.code.permissions.enums.Rank;
 import lee.code.permissions.enums.RankData;
 import lee.code.permissions.lang.Lang;
 import lee.code.permissions.utils.CoreUtil;
+import lee.code.playerdata.PlayerDataAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SetRankCMD extends CustomCommand {
   private final Permissions permissions;
@@ -65,12 +67,8 @@ public class SetRankCMD extends CustomCommand {
     }
     final CacheManager cacheManager = permissions.getCacheManager();
     final String targetString = args[0];
-    final OfflinePlayer target = Bukkit.getOfflinePlayerIfCached(targetString);
-    if (target == null) {
-      sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PLAYER_NOT_FOUND.getComponent(new String[]{targetString})));
-      return;
-    }
-    if (!cacheManager.getCachePlayers().hasPlayerData(target.getUniqueId())) {
+    final UUID targetID = PlayerDataAPI.getUniqueId(targetString);
+    if (targetID == null) {
       sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PLAYER_DATA.getComponent(new String[]{targetString})));
       return;
     }
@@ -79,17 +77,16 @@ public class SetRankCMD extends CustomCommand {
       sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_RANK.getComponent(new String[]{rankString})));
       return;
     }
+    final OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(targetID);
     final Rank rank = Rank.valueOf(rankString);
     final RankData rankData = RankData.valueOf(rankString);
-    cacheManager.getCachePlayers().setRank(target.getUniqueId(), rank);
-    ColorAPI.setPlayerColorData(target, rankData.getPrefix(), rankData.getSuffix(), rankData.getPriority(), rankData.getColor());
-    if (target.isOnline()) {
-      final Player onlineTarget = target.getPlayer();
-      if (onlineTarget != null) {
-        permissions.getPermissionManager().registerPermissions(onlineTarget);
-      }
+    cacheManager.getCachePlayers().setRank(targetID, rank);
+    ColorAPI.setPlayerColorData(offlineTarget, rankData.getPrefix(), rankData.getSuffix(), rankData.getPriority(), rankData.getColor());
+    if (offlineTarget.isOnline()) {
+      final Player onlineTarget = offlineTarget.getPlayer();
+      if (onlineTarget != null) permissions.getPermissionManager().registerPermissions(onlineTarget);
     }
-    sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_SET_RANK_SUCCESSFUL.getComponent(new String[]{ColorAPI.getNameColor(target.getUniqueId(), target.getName()), CoreUtil.capitalize(rankString)})));
+    sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_SET_RANK_SUCCESSFUL.getComponent(new String[]{ColorAPI.getNameColor(targetID, offlineTarget.getName()), CoreUtil.capitalize(rankString)})));
   }
 
   @Override

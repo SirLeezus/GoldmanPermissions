@@ -6,8 +6,7 @@ import lee.code.permissions.commands.CustomCommand;
 import lee.code.permissions.database.CacheManager;
 import lee.code.permissions.lang.Lang;
 import lee.code.permissions.utils.CoreUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import lee.code.playerdata.PlayerDataAPI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -64,13 +63,8 @@ public class PermissionCMD extends CustomCommand {
     }
     final CacheManager cacheManager = permissions.getCacheManager();
     final String targetString = args[0];
-    final OfflinePlayer offlineTarget = Bukkit.getOfflinePlayerIfCached(targetString);
-    if (offlineTarget == null) {
-      sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_PLAYER_NOT_FOUND.getComponent(new String[]{targetString})));
-      return;
-    }
-    final UUID targetID = offlineTarget.getUniqueId();
-    if (!cacheManager.getCachePlayers().hasPlayerData(targetID)) {
+    final UUID targetID = PlayerDataAPI.getUniqueId(targetString);
+    if (targetID == null) {
       sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PLAYER_DATA.getComponent(new String[]{targetString})));
       return;
     }

@@ -2,10 +2,9 @@ package lee.code.permissions.managers;
 
 import lee.code.permissions.Permissions;
 import lee.code.permissions.lang.Lang;
+import lee.code.playerdata.PlayerDataAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Set;
@@ -53,11 +52,7 @@ public class StaffChatManager {
   public void sendMessage(Player player, Component message) {
     final Component targetMessage = parseChatVariables(player, Lang.STAFF_CHAT.getComponent(null), message);
     for (UUID staff : permissions.getCacheManager().getCachePlayers().getStaffData().getStaff()) {
-      final OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(staff);
-      if (!offlineTarget.isOnline()) continue;
-      final Player onlineTarget = offlineTarget.getPlayer();
-      if (onlineTarget == null) continue;
-      onlineTarget.sendMessage(targetMessage);
+      PlayerDataAPI.sendPlayerMessageIfOnline(staff, targetMessage);
     }
   }
 }

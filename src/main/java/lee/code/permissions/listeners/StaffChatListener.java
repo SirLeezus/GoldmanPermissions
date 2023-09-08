@@ -18,7 +18,6 @@ public class StaffChatListener implements Listener {
     if (e.isCancelled()) return;
     if (permissions.getStaffChatManager().isChatting(e.getPlayer().getUniqueId())) {
       e.setCancelled(true);
-      System.out.println("Sending Chat Message");
       permissions.getStaffChatManager().sendMessage(e.getPlayer(), e.message());
     }
   }

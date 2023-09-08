@@ -44,6 +44,9 @@ dependencies {
 
   //goldman colors
   compileOnly 'lee.code.colors:colors:1.0.0'
+
+  //goldman playerdata
+  compileOnly 'lee.code.playerdata:playerdata:1.0.0'
 }
 
 shadowJar {
