@@ -31,8 +31,7 @@ public class PermissionManager {
     final PermissionAttachment attachment = player.addAttachment(permissions);
     attachment.getPermissions().clear();
 
-    for (PermissionAttachmentInfo perm : player.getEffectivePermissions())
-      attachment.setPermission(perm.getPermission(), false);
+    for (PermissionAttachmentInfo perm : player.getEffectivePermissions()) attachment.setPermission(perm.getPermission(), false);
     for (String perm : playerPermissions) attachment.setPermission(perm, true);
     for (String perm : rankPermissions) attachment.setPermission(perm, true);
     player.recalculatePermissions();

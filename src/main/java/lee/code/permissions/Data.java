@@ -60,13 +60,22 @@ public class Data {
         }
         case ELITE -> {
           setRankPermission(rank, "central.command.something");
+          setRankPermission(rank, "vault.pages.20");
+          setRankPermission(rank, "pets.max.20");
+
           setRankBulkPermission(rank, getRankPermissions(Rank.LEGEND));
         }
         case LEGEND -> {
           setRankPermission(rank, "central.command.color");
+          setRankPermission(rank, "vault.pages.10");
+          setRankPermission(rank, "pets.max.10");
+
           setRankBulkPermission(rank, getRankPermissions(Rank.DEFAULT));
         }
         case DEFAULT -> {
+          setRankPermission(rank, "pets.max.3");
+          setRankPermission(rank, "vault.pages.2");
+          setRankPermission(rank, "vault.command.vault");
           setRankPermission(rank, "central.command.balance");
           setRankPermission(rank, "towns.command.use");
           setRankPermission(rank, "towns.command.help");
