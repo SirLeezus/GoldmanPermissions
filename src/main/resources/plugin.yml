@@ -1,7 +1,7 @@
 name: GoldmanPermissions
 version: ${version}
 main: lee.code.permissions.Permissions
-api-version: 1.19
+api-version: 1.20
 author: Lee
 folia-supported: true
 depend: [GoldmanColors, GoldmanPlayerData]
