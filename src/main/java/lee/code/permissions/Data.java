@@ -85,6 +85,14 @@ public class Data {
           setRankPermission(rank, "punishments.command.punishments");
           setRankPermission(rank, "punishments.command.cuff");
           setRankPermission(rank, "punishments.command.uncuff");
+          setRankPermission(rank, "vulcan.alerts");
+          setRankPermission(rank, "vulcan.violations");
+          setRankPermission(rank, "coreprotect.inspect");
+          setRankPermission(rank, "coreprotect.lookup");
+          setRankPermission(rank, "coreprotect.lookup.*");
+          setRankPermission(rank, "coreprotect.rollback");
+          setRankPermission(rank, "coreprotect.restore");
+          setRankPermission(rank, "coreprotect.help");
           setRankBulkPermission(rank, getRankPermissions(Rank.ELITE));
         }
         case ELITE -> {
@@ -110,6 +118,7 @@ public class Data {
           setRankPermission(rank, "central.homes.15");
           setRankPermission(rank, "central.command.glow");
           setRankPermission(rank, "central.command.color");
+          setRankPermission(rank, "central.command.hat");
           setRankPermission(rank, "central.command.sort");
           setRankPermission(rank, "towns.command.fly");
           setRankPermission(rank, "trails.particle.redstone");
