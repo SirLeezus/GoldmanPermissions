@@ -252,6 +252,8 @@ public class Data {
           setRankPermission(rank, "locks.command.help");
           setRankPermission(rank, "locks.command.remove");
           setRankPermission(rank, "locks.command.signhelp");
+          setRankPermission(rank, "central.command.buy");
+          setRankPermission(rank, "central.command.motd");
         }
       }
     }
