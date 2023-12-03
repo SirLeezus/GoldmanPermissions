@@ -254,6 +254,11 @@ public class Data {
           setRankPermission(rank, "locks.command.signhelp");
           setRankPermission(rank, "central.command.buy");
           setRankPermission(rank, "central.command.motd");
+          setRankPermission(rank, "votes.command.vote");
+          setRankPermission(rank, "votes.command.websites");
+          setRankPermission(rank, "votes.command.total");
+          setRankPermission(rank, "votes.command.top");
+          setRankPermission(rank, "votes.command.help");
         }
       }
     }
