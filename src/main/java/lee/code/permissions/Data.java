@@ -215,6 +215,7 @@ public class Data {
           setRankPermission(rank, "central.command.warp");
           setRankPermission(rank, "central.command.rules");
           setRankPermission(rank, "central.command.help");
+          setRankPermission(rank, "central.command.guide");
           setRankPermission(rank, "towns.command.towns");
           setRankPermission(rank, "towns.command.abandon");
           setRankPermission(rank, "towns.command.create");
