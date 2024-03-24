@@ -1,4 +1,4 @@
-![CentralPluginImage](https://i.imgur.com/iTdEfxH.png)
+![PluginImage](https://i.imgur.com/iTdEfxH.png)
 
 ## About
 
